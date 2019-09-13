@@ -10,27 +10,43 @@ let NodeWorkSpaseCounter = 0;
 
 class NodeWorkSpase { 
     constructor({name = "none", showDisc = false, result , note, answer, answers = [] }) {
-
+        // main obj
         this.wrokSpase = [{}];
-
+        // constructor obj 
         let obj = { 
-            id: NodeWorkSpaseCounter+1,
-            SHOWDISC: showDisc,
-            NOTE: note,
-            ANSWER: answer,
-            ANSWERS: answers  
+            "id": NodeWorkSpaseCounter+1,
+            "showDefaultDisclaimer": showDisc,
+            "note": note,
+            "answer": answer,
+            "answers": answers  
         }
+        // verification "undifind"
         for(let el in obj) { 
          if (obj[el] != undefined) { 
-           this.wrokSpase[0][el] = obj[el]
+             if (obj[el] = Array && obj[el].length != 0) {
+                this.wrokSpase[0][el] = obj[el]
+             }
          }
         }
     }
-    getObject() { 
-        console.log(this.wrokSpase)
+    get() { 
+       return this.wrokSpase
+    }
+    addNode() { 
+    
+    }
+    search(key) { 
+
+        for(let e in this.wrokSpase[0]) { 
+            if(e == key) { 
+                return  { key: e, result: true, value: this.wrokSpase[0][e]} 
+                }   
+            }
+        return { key: key, result: false, value: "none"} 
+        }
+        
     }
   
-}
 class Node { 
     constructor() { 
         this.main     = [];
@@ -42,7 +58,9 @@ class Node {
     }
 }
 
+
+
 let tab = new NodeWorkSpase({result: "ha"});
 
-tab.getObject();
+console.log(tab.search("showDefaultDiscdlaimer"))
 
