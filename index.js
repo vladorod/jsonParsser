@@ -8,59 +8,65 @@ const  QUESTION = "question",
 
 let NodeWorkSpaseCounter = 0;
 
-class NodeWorkSpase { 
-    constructor({name = "none", showDisc = false, result , note, answer, answers = [] }) {
+class Node { 
+    constructor({id, name = "none", showDisc , result , note, answer, answers = [] }) {
         // main obj
         this.wrokSpase = [{}];
+
+        if (id = 0 && showDisc == undefined) { 
+            showDisc = false
+        }
         // constructor obj 
         let obj = { 
-            "id": NodeWorkSpaseCounter+1,
+            "id": id+1,
             "showDefaultDisclaimer": showDisc,
             "note": note,
             "answer": answer,
             "answers": answers  
         }
         // verification "undifind"
-        for(let el in obj) { 
-         if (obj[el] != undefined) { 
-             if (obj[el] = Array && obj[el].length != 0) {
-                this.wrokSpase[0][el] = obj[el]
-             }
-         }
-        }
+        verific(obj)
     }
     get() { 
        return this.wrokSpase
     }
     addNode() { 
-    
+        if (this.search("answers").result == false) { 
+            this.addInWorkSpace(ANSWERS,[])
+        } 
+        this.wrokSpase[0][ANSWERS].push()
     }
-    search(key) { 
+    addInWorkSpace(obj = this.wrokSpase,key,value) { 
+        obj[0][key] = value
+    }
 
+    search(key) { 
         for(let e in this.wrokSpase[0]) { 
             if(e == key) { 
                 return  { key: e, result: true, value: this.wrokSpase[0][e]} 
                 }   
             }
         return { key: key, result: false, value: "none"} 
-        }
-        
+    }  
+    verific(obj) { 
+        let newojb = {}
+        for(let el in obj) { 
+            if (obj[el] != undefined) { 
+                if (obj[el] = Array && obj[el].length != 0) {
+                   this.addInWorkSpace(newojb,el,obj[el])
+                }
+            }
+           }
+        return newojb
+    }
     }
   
-class Node { 
-    constructor() { 
-        this.main     = [];
-        this.answer   = {}; 
-        this.answers  = []; 
-        this.question = question;
-        this.result   = result;
-        this.note     = note; 
-    }
-}
 
 
 
-let tab = new NodeWorkSpase({result: "ha"});
+let tab = new Node({id: NodeWorkSpaseCounter, result: "ha"});
 
-console.log(tab.search("showDefaultDiscdlaimer"))
+tab.addNode()
+
+console.log(tab.get())
 
